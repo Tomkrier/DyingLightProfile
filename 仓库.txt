@@ -1,0 +1,13 @@
+scripts\player\player_variables.scr
+
+    Param("EquipmentSlotsCount", "30");          	//物品仓库槽数
+    Param("VisibleEquipmentSlotsCount", "4");    	//物品快捷槽数
+    Param("ConsumableSlotsCount", "30");         	//消耗品仓库槽数
+    Param("VisibleConsumableSlotsCount", "4");   	//消耗品快捷槽数
+	Param("QuickSlotsCount", "50");              	//武器仓库槽数
+    Param("VisibleQuickSlotsCount", "4");        	//武器快捷槽数
+	Param("AmmoSlotsCount", "90"); 				 	//子弹仓库槽数，最大值100
+	Param("ChargeWeaponDurabilityMul", "0.05");	 	//耐久消耗倍率
+	Param("MeleeWpnDurabilityMulReduce", "0.05");
+    Param("MeleeWpnHeavyAttackDurabilityMul", "0.05");
+    Param("EfficientFightingDurabilityLostMul", "0.05");

@@ -1,0 +1,53 @@
+data0\scripts\inventory\loot\item_sets.loot
+物品模板
+	sub CraftParts(float weight = 1.0, int min_amount = 1, int max_amount = 1, float prob = 1.0)
+    {
+        Set(Other, weight, min_amount, max_amount, prob)
+        {
+			Item("Craft_Scrap", 1.0);
+			Item("Craft_Blades", 1.0);
+			Item("Craft_Weights", 1.0);
+			Item("Craft_Container", 1.0);
+			Item("Craft_Alcohol", 1.0);
+			Item("Craft_Cleaning_Supplies", 1.0);
+			Item("Craft_Resin", 1.0);
+			Item("Craft_Pigments", 1.0);
+			Item("Craft_Oxidizer", 1.0);
+			Item("Craft_Rags", 1.0);
+			Item("Craft_Leather", 1.0);
+			Item("Craft_Feathers", 1.0);
+			Item("Craft_Wiring", 1.0);
+			Item("Craft_Electrical_Parts", 1.0);
+			Item("Craft_Battery", 1.0);
+		}
+    }
+
+data0\scripts\inventory\loot\color_sets.loot
+爆率模板，这里只是改爆率的，注意 sub DefineColorsHard() 这后面的是困难模式的爆率
+	DefColorSet(ColorSet_Darkplace)
+	{
+        ColorWeight(Color_White, 0);
+        ColorWeight(Color_Green, 60);
+        ColorWeight(Color_Blue, 30);
+        ColorWeight(Color_Violet, 9);
+        ColorWeight(Color_Orange, 1);
+    }
+	
+data0\scripts\inventory\loot\default.loot
+爆物品的主文件,设定了 什么对象 用 哪个颜色模板 爆 哪个物品模板里的物品 还有比重是多少
+
+	LootedObject("Weights")
+    {
+        ColorSet(ColorSet_Equal);
+		LootAmount(10);
+		use Weights (weight = 1.0);
+    }
+	LootedObject("Weights_Chance")
+    {
+        ColorSet(ColorSet_Equal);
+		LootAmount(10);				//战利品数量，经测试不生效，可能要改其他地方
+		use Empty (weight = 1.0);	//权重
+		use Weights (weight = 1.0);	//权重
+    }
+这个是配重物的爆率，使用ColorSet_Equal模版，带Chance的有概率为空
+lootpools_ft.loot同上，这里也可以将ColorSet_GreenOnly改为ColorSet_BlueOnly等

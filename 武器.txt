@@ -1,0 +1,295 @@
+data0\scripts\inventory\inventory_gen.scr
+
+Item("dlc_ft_wpn_1hs_mach_b_baron_r1", CategoryType_Melee)
+    {
+        use wpn_1hs_mach_b_baron();                    // 使用公共参数
+        Condition(100);                                // 耐久
+        CriticalCondition(30);                         // 临界耐久
+        StaminaDamage(136);                            // 耐力伤害
+        PowerAttackDamageMul(0.5);                     // 强力攻击伤害倍数
+        StaminaUsage(0.3);                             // 耐力消耗
+        InventoryMeshHQ("wpn_1hs_mach_b_FPP.msh");     // 高清模型
+        InventoryMesh("wpn_1hs_mach_b_FPP.msh");       // 模型
+        Mesh("wpn_1hs_mach_b_TPP.msh");                // 模型
+        Skin("baron");                                 // 皮肤
+        Price(320);                                    // 价格
+        TierSpread(1, 1);                              // 等级分布
+        Rank(1);                                       // 等级
+        GameVersion(1);                                // 游戏版本
+        IsAutomaticTierScaling(false);                 // 是否自动等级扩展
+        DamageTiers("dlc_ft_slashing_tier_damages");   // 伤害等级
+        UID("7486527411720549520");                    
+        WeaponForcedAffixGroup("Slashing_1h_Affixes_Rare_ft"); // 武器强制词缀组
+        WeaponRandomAffixGroup("Weapons_Random_Rare_ft"); // 武器随机词缀组
+        RepairPart("Craft_Scrap", 18);                 // 维修所需零件及数量
+        DismantleResult("Dismantle_T1_Slash");         // 拆除结果
+        CanDrop(true);                                 // 是否可掉落
+        CanThrow(true);                                // 是否可投掷
+        XrayTriggerProbability(0.0);                   // X射线特效触发概率
+    }
+	
+data0\scripts\inventory\inventory.scr
+	
+Item("Throwable_ThrowingKnifeBleeding_FT_T1", CategoryType_Throwable)    // 物品ID，类别为投掷物
+{
+    ItemType(ItemType_ThrowingStar);                                    // 物品类型（投掷）
+    Visibility(true);                                                   // 是否可见
+    HandToUse("LEFT", false);                                           // 使用手（左手）
+    MaxStackCount(999);                                                 // 最大堆叠数量
+    Price(30);                                                          // 价格
+    HudIcon("wpn_throw_knives_bleeding");                               // HUD图标
+    Mesh("wpn_throwing_knife_bleed_a_tpp.msh");                         
+    AnimPrefix("Knife");                                                // 动画前缀
+    PhysicsScript("dropped_inventory.phx");                             // 物理脚本
+    DamageName("Throwable_ThrowingKnifeDamage");                        // 伤害名称
+    DamageHeadMult(2.5);                                                // 头部伤害倍数
+    TaggedEnemyBonusHeadshotDmgFactor(4.5, "human_all;infected_vulnerable;"); // 对特定敌人爆头伤害加成
+    DamageToPhysicsObjects(50.0);                                       // 对可破坏场景的伤害
+    InitialRotation(180, 90, 0);                                        // 初始旋转角度
+    RotationVel(720, 0, 0);                                             // 旋转速度
+    ThrowSpeed(40.0);                                                   // 投掷速度
+    MotionTrailFx("throwing_knife_trail.gpufx");                        // 飞行轨迹特效
+    ThrowImpulseUp(0.0);                                                // 向上投掷冲量
+    GravityFactor(0.5);                                                 // 重力因子
+    DamageRange(0.01);                                                  // 伤害范围
+    PhysicsDamageMul(2.0);                                              // 物理伤害倍增
+    DamageType(DamageType_Cut);                                         // 伤害类型（切割）
+    HitReactionHitSeverity(EHitSeverity_Medium);                        // 命中反应严重性
+    HitReactionType(EReactionType_Cut);                                 // 命中反应类型（切割）
+    HitReactionMoveSeverity(EMoveSeverity_Medium);                      // 命中移动严重性
+    HorizontalAttackDamageMul(1.0);                                     // 水平攻击伤害倍增
+    TwoHanded(false);                                                   // 是否为双手武器
+    HolderElement("bip01 r thigh");                                     // 持有部位
+    HolderOffset([0.0,0.1,0.1] *[0.01, 0.01, 0.01]);                    // 持有位置偏移
+    HolderAngle([0.0,0.0,-90.0]);                                       // 持有角度
+    AiHitSound("knife_throw");                                          // AI命中声音
+    use HitEffects_Knife_Throw();                                       // 使用刀剑投掷命中效果
+    use PickupSounds_Knife();                                           // 使用刀剑拾取声音
+    DamageSize(1.0);                                                    // 伤害尺寸
+    FF_EffectName("Throw_Knife");                                       // 力反馈效果名称
+    FF_Left(1.0);                                                       // 左力度
+    FF_Right(1.0);                                                      // 右力度
+    FF_Duration(0.5);                                                   // 力反馈持续时间
+    FF_FadeOut(1.0);                                                    // 力反馈淡出时间
+    NoiseType("NONE");                                                  // 噪音类型（无）
+    EquipmentSlot();                                                    // 装备槽位
+    Color(Color_Green);                                                 // 品质颜色
+    GenType(GenType_None);                                              // 生成类型（无）
+    EnabledAutoAim(false);                                              // 是否启用自动瞄准
+    EnabledAutoAimTarget(false);                                        // 是否启用自动瞄准目标
+    RicochetEnable(false);                                              // 是否启用跳弹
+    ItemLevel(1, 4);                                                    // 物品等级范围
+    UIStats(){                                                          // UI统计信息
+        UIStat("&StatsUI_ModElementalDamage&", 20, "Normal");           // 元素伤害
+        UIStat("&StatsUI_ModElementalDuration&", 10, "Seconds");        // 元素持续时间
+    }
+    InventoryMesh("wpn_throwing_knife_bleed_a_fpp.msh");                // 第一人称模型
+    HideFlightParaboll(true);                                           // 隐藏飞行抛物线
+    ThrowAggroValue(10.0);                                              // 投掷仇恨值
+    FlyBySound("flyby_knife");                                          // 飞过声音
+    CraftingSlots(false, false, false, false);                          // 制作槽位
+    StartupMod("BleedingMod_Throwable");                                // 启动MOD（流血效果）
+    Name("&Throwable_ThrowingKnifeBleeding_FT_n&");                     // 名称
+    Description("&Throwable_ThrowingKnifeBleeding_FT_d&");              // 描述
+    DamageScaledByDistance(true);                                       // 伤害随距离衰减
+    Silenced(true);                                                     // 是否消音
+    DestroyableDamage(40.0);                                            // 可破坏性伤害
+    GameVersion(1);                                                     // 游戏版本
+    UID("7474983600713972939");                                         
+}
+	
+	
+	
+data0\scripts\inventory\inventory_weapondefintions_ft.scr
+公共参数内容
+sub wpn_1hs_mach_b_baron()
+    {
+        WpnSubtype(EWpnSubtype_Axe);                   // 武器子类型
+        Visibility(true);                              // 是否可见
+        ItemType(ItemType_Stick);                      // 物品类型
+        PhysicsScript("simple.phx");                   // 物理脚本
+        CriticalCondition(30);                         // 临界耐久度
+        DamageTiers("slashing_tier_damages");          // 伤害等级数据
+        ArmourDamageName("Player_Armour_Damage");      // 护甲伤害名称
+        CriticalProb(0.0);                             // 暴击概率
+        CriticalDamage(2.0);                           // 暴击伤害倍数
+        DamageRange(1.35);                             // 伤害范围
+        DamageToPhysicsObjects(50.0);                  // 对可破坏物体的伤害
+        PhysicsDamageMul(2.5);                         // 物理伤害倍数
+        DestroyableDamage(60.0);                       // 可破坏性伤害
+        ConfusionProb(0.0);                            // 混乱概率
+        WeaponBuildType(WeaponBuildType_Universal);    // 武器制造类型
+        DamageType(DamageType_Cut);                    // 伤害类型
+        Flags(259);                                    
+        InventoryMeshHQ("wpn_1hs_mach_b_FPP.msh");     // 高清模型
+        InventoryMesh("wpn_1hs_mach_b_FPP.msh");       // 模型
+        Mesh("wpn_1hs_mach_b_TPP.msh");                // 模型
+        InventoryConditionMeshHQ(1, 0.7);              // 耐久度等级1的高清模型阈值
+        InventoryConditionMeshHQ(2, 0.3);              // 耐久度等级2的高清模型阈值
+        SkinTag("Weapon_Craft0");                      // 皮肤标签
+        Skin("baron");                                 // 皮肤
+        AnimPrefix("Stick_Axe");                       // 动画前缀
+        HudIcon("wpn_1hs_mach_b_baron_icon_ft");       // HUD图标
+        HitReactionType(EReactionType_Cut);            // 命中反应类型（切割）
+        HitReactionHitSeverity(EHitSeverity_Light);    // 命中反应严重程度
+        HitReactionMoveSeverity(EMoveSeverity_Light);  // 命中移动严重程度
+        HitReactionStrongHitSeverity(EHitSeverity_Light); // 强力命中反应严重程度
+        HitReactionStrongMoveSeverity(EMoveSeverity_Medium); // 强力命中移动严重程度
+        ChargedAttackRagdollProbability(0.0);          // 蓄力攻击击倒概率
+        LightAttackRagdollProbability(0.0);            // 轻攻击击倒概率
+        HorizontalAttackDamageMul(1.0);                // 水平攻击伤害倍数
+        TwoHanded(false);                              // 是否为双手武器
+        HolderElement("spine2");                       // 持有部位
+        HolderOffset([-25.0,-10.0,15.0] *[0.01, 0.01, 0.01]); // 持有位置偏移
+        HolderAngle([90.0,200.0,90.0]);                // 持有角度
+        ThrustAngle(30.0);                             // 刺击角度
+        DestroySound("break_wooden_weapon_00.wav");    // 摧毁音效
+        AiHitSound("machete");                         // AI命中音效
+        Material("metal");                             // 材质（金属）
+        use HitEffects_Machete();                      // 使用砍刀命中效果
+        use PickupSounds_Machete();                    // 使用砍刀拾取音效
+        DamageSize(3.0);                               // 伤害范围
+        StatsType(StatsType_Cut);                      // 统计类型（切割）
+        FF_EffectName("Hit_Sharp");                    // 力反馈效果名称
+        FF_Left(0.6);                                  // 左手力反馈强度
+        FF_Right(0.6);                                 // 右手力反馈强度
+        FF_Duration(0.2);                              // 力反馈持续时间
+        FF_FadeOut(0.0);                               // 力反馈淡出时间
+        Reparable(true);                               // 是否可修复
+        RepairTags("Weapon_Craft4");                   // 修复标签
+        RepairPart("Craft_MetalScrap", 1);             // 修复所需零件及数量
+        Color(Color_White);                            // 品质颜色
+        AchType(AchType_Axe);                          // 成就类型
+        DismantleResult("&Axe_White_1h&");             // 拆除结果
+        CraftingSlots(false, false, false, true);      // 制作槽位（可否改装）
+        UniqueFxNameBase("machete");                   // 独特特效名称基础
+        RagdollBehaviorPrefix("StickSharp");           // 布娃娃行为前缀
+        HandInertiaFactor(1.8);                        // 手部惯性因子
+        GenType(GenType_MeleeWeapon);                  // 生成类型（近战武器）
+        InWorldScale(1.0);                             // 世界中的缩放比例
+        OpportunityWeapon(false);                      // 是否为机会武器
+        LimbsCutProb(0.5);                             // 断肢概率
+        StunnedEffectDuration(1.0);                    // 眩晕效果持续时间
+        StaminaUsage(0.11);                            // 耐力消耗
+        Name("&wpn_1hs_mach_b_baron_n&");              // 名称
+        Description("&wpn_1hs_mach_b_baron_d&");       // 描述
+        BodyHoleProb(0.75);                            // 身体创口概率
+    }
+	
+data0\scripts\inventory\inventory_firearmsdefintions.scr
+
+sub Weapon_Firearm_Pistol_Def()
+    {
+        CategoryType(CategoryType_Firearm);            // 类别类型（枪械）
+        Visibility(true);                              // 是否可见
+        ItemType(ItemType_Pistol);                     // 物品类型（手枪）
+        PhysicsScript("dropped_inventory.phx");        // 掉落时的物理脚本
+        UpgradeLevel(0);                               // 升级等级
+        Condition(-1.0);                               // 耐久度（-1表示无限耐久）
+        DamageRangeMelee(110.0 *0.01);                 // 近战伤害范围
+        BodyHoleProb(0.6875);                          // 身体创口概率
+        LimbsCutProbHeadshot(0.0);                     // 爆头断肢概率
+        LimbsDestroyProbHeadshot(2.0);                 // 爆头摧毁肢体概率
+        LimbsCutProb(0.0);                             // 断肢概率
+        LimbsDestroyProb(2.0);                         // 摧毁肢体概率
+        DamageType(DamageType_Bullet);                 // 伤害类型（子弹）
+        SkinTag("Weapon_Craft0");                      // 皮肤标签
+        AnimPrefix("PistolPrototype");                 // 动画前缀
+        MoveAnimPrefix("Unarmed");                     // 移动动画前缀（无武器状态）
+        HudIcon("weapon_pistol");                      // HUD图标
+        ShotTime(0.15);                                // 射击间隔时间
+        ShotSound("wpn_pistol_shot");                  // 射击音效
+        EmptySound("wpn_pistol_shot_empty");           // 空枪音效
+        BaseSoundPrefix("pistol");                     // 基础音效前缀
+        DefaultBulletId("Bullet_Firearm_Pistol");      // 默认子弹ID
+        AmmoCount(30);                                 // 弹匣容量
+        ReloadTime(1.0);                               // 装填时间（秒）
+        TwoHanded(false);                              // 是否为双手持握
+        HolderElement("r_thigh");                      // 持有部位
+        HolderOffset([0.0,10.0,0.0] *[0.01, 0.01, 0.01]); // 持有位置偏移
+        HolderAngle([0.0,90.0,-90.0]);                 // 持有角度
+        use HitEffects_Firearm_Pistol();               // 使用手枪命中效果
+        use PickupSounds_Pistol();                     // 使用手枪拾取音效
+        ClipReload(true);                              // 是否使用弹匣装填
+        FxNameShell("pistol_shells_eject_01a.gpufx");  // 弹壳抛壳特效
+        ShootFx("pistol_muzzle_flash_fx_01a_fpp.gpufx"); // 射击枪口火焰特效
+        JumpInertiaFactor(0.5);                        // 跳跃惯性因子
+        DuckInertiaFactor(0.1);                        // 下蹲惯性因子
+        HandInertiaFactor(0.65);                       // 手部惯性因子
+        HandInertiaRotFactor([1.0,0.0,0.4]);           // 手部旋转惯性因子
+        BulletGravityFactor(1);                        // 子弹重力因子
+        BulletSpeed(450);                              // 子弹速度
+        BulletsPerShot(1);                             // 每次射击发射子弹数
+        MoveAcurancyLoseFactor(0.5);                   // 移动精度损失因子
+        DodgeAccuracyLoseFactor(2.0);                  // 闪避精度损失因子
+        SwayMaxAngle(0.0002);                          // 最大摇摆角度
+        ForceZeroDeviationAtFullAccuracy(false);       // 是否在完全精准时强制零偏差
+        ShootMinAngle(0.055);                          // 最小射击散布角度
+        ShootMaxAngle(0.2);                            // 最大射击散布角度
+        ShootAngleVel(0.055);                          // 射击角度变化速度
+        ShootAngleCooldown(0.22);                      // 射击角度冷却时间
+        ShootAngleDistribution(1.1);                   // 射击角度分布
+        ShootMode(ShotMode_Single);                    // 射击模式，single单发，automatic自动，burst三连发
+        ShootVertRecoil(0.022);                        // 垂直后坐力
+        ShootVertRecoilSpread(0.015);                  // 垂直后坐力散布
+        ShootHorzRecoil(0.005);                        // 水平后坐力
+        ShootHorzRecoilSpread(0.01);                   // 水平后坐力散布
+        ShootRecoilTime(0.035);                        // 后坐力持续时间
+        ShootRecoilReturnTime(0.3);                    // 后坐力恢复时间
+        ShootAnimFactor(1.0);                          // 射击动画因子
+        AimFov(1.2);                                   // 瞄准视野（FOV）
+        AimTime(0.3);                                  // 瞄准时间
+        MaxReboundCount(0);                            // 最大反弹次数
+        RicochetSoundAndFXEnabled(false);              // 是否启用跳弹音效和特效
+        AiHitSound("bullet");                          // AI命中音效
+        StatsType(StatsType_Pistol);                   // 统计类型（手枪）
+        Price(8000);                                   // 价格
+        FF_EffectName("Shot_Pistol_ft");               // 力反馈效果名称
+        DamageHeadMult(2.5);                           // 头部伤害倍数
+        DamageToPhysicsObjects(1.0);                   // 对可破坏物体的伤害
+        DestroyableDamage(40.0);                       // 可破坏性伤害阈值
+        EnablePenetration(false);                      // 是否启用穿透
+        FirePointRange(0, 7);                          // 火力点0的范围
+        FirePointDamage(0, "firearm_pistol_sweetspot_tier_damages"); // 火力点0的伤害数据
+        FirePointHitSeverity(0, EHitSeverity_Medium);  // 火力点0的命中严重程度
+        FirePointMoveSeverity(0, EMoveSeverity_Light); // 火力点0的移动严重程度
+        FirePointPhysicsDamage(0, 2.5);                // 火力点0的物理伤害倍数
+        FirePointReactionType(0, EReactionType_Pierce);// 火力点0的反应类型（穿刺）
+        FirePointReactionFlags(0, EReactionFlag_None); // 火力点0的反应标志
+        FirePointRange(1, 15);                         // 火力点1的范围
+        FirePointDamage(1, "firearm_pistol_normal_tier_damages"); // 火力点1的伤害数据
+        FirePointHitSeverity(1, EHitSeverity_Medium);  // 火力点1的命中严重程度
+        FirePointMoveSeverity(1, EMoveSeverity_Light); // 火力点1的移动严重程度
+        FirePointPhysicsDamage(1, 2.5);                // 火力点1的物理伤害倍数
+        FirePointReactionType(1, EReactionType_Pierce);// 火力点1的反应类型
+        FirePointReactionFlags(1, EReactionFlag_None); // 火力点1的反应标志
+        FirePointRange(2, 100);                        // 火力点2的范围
+        FirePointDamage(2, "firearm_pistol_fade_tier_damages"); // 火力点2的伤害数据
+        FirePointHitSeverity(2, EHitSeverity_Medium);  // 火力点2的命中严重程度
+        FirePointMoveSeverity(2, EMoveSeverity_Light); // 火力点2的移动严重程度
+        FirePointPhysicsDamage(2, 1.7);                // 火力点2的物理伤害倍数
+        FirePointReactionType(2, EReactionType_Pierce);// 火力点2的反应类型
+        FirePointReactionFlags(2, EReactionFlag_None); // 火力点2的反应标志
+        Color(Color_Violet);                           // 品质颜色
+        GenType(GenType_Firearm);                      // 生成类型（枪械）
+        AchType(AchType_Pistol);                       // 成就类型（手枪）
+        NameGender(0);                                 // 名称性别
+        PriceMult(1);                                  // 价格倍数
+        TrueFirearm(true);                             // 是否为真枪械
+        NoiseDataUid("noise_firearm_pistol");          // 噪音数据UID
+        CanDrop(true);                                 // 是否可掉落
+        IsShareable(true);                             // 是否可共享
+        DismantleResult(" ");                          // 拆除结果
+        Name("&Weapon_Firearm_Pistol_Def&");           // 名称
+        Description("&Weapon_Firearm_Pistol_Def&");    // 描述
+        GameVersion(1);                                // 游戏版本
+    }
+	
+data0\scripts\inventory\inventory_special.scr
+
+MaxRepairCountByRarity(Color_White,  100);
+    MaxRepairCountByRarity(Color_Green,  100);		//最大维修次数
+    CraftSlotsBonus(Color_Green,  0, 0);			//模组插槽数量
+    RepairSlotsBonus(Color_Green,  0);				//维修插槽
+    DurabilityBonus(Color_White,  10);				//额外耐久
+    AffixBonus(Color_Green, 0);						//附加奖励
